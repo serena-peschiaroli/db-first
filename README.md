@@ -43,3 +43,15 @@ Entità:
     DataTagliando,
     DescTagliando,
     OraTagliando
+- 6 AQUISTI:
+    AquistoID,
+    SellerID,
+    CarID
+    PurchasingDate,
+    PurchasingPrice
+- 7 Vendite:
+    Vendite ID
+    ClientID
+    CarID
+    SellingDate
+    SellingPrice

@@ -3,15 +3,16 @@ CREATE TABLE AutoUsate (
     Marca VARCHAR(50) NOT NULL,
     Modello VARCHAR(50) NOT NULL,
     Anno INT NOT NULL,
-    Kilometri INT NULL,
+    Kilometri INT NOT NULL,
     Prezzo DECIMAL(10, 2) NOT NULL,
     Cambio VARCHAR(20) DEFAULT 'Manuale',
     Colore VARCHAR(20) NULL,
+    Alimentazione VARCHAR(100) NOT NULL,
     Cilindrata DECIMAL(4, 2) NULL,
-    Riparazioni BOOLEAN,
-    TagliandoID INT, -- foreign key legata a tabella Tagliandi
-    ProprietarioID INT, -- foreign key relazionata con tabella Proprietari
-    ClienteID INT, -- foreign key legata con tabella Clienti
+    TagliandoID INT, -- foreign key legata a tabella Tagliandi(TagliandoID)
+    Riparazioni BOOLEAN, -- foreign key legata a Riparazioni(ReparationID)
+    ProprietarioID INT, -- foreign key relazionata con tabella Proprietari(SellerID)
+    ClienteID INT -- foreign key legata con tabella Clienti(ClientID)
 );
 
 CREATE TABLE Proprietari (
@@ -20,6 +21,22 @@ CREATE TABLE Proprietari (
     SellerEmail VARCHAR(255) NOT NULL,
     SellerPhone VARCHAR(20) NOT NULL,
     SellerAddress VARCHAR(255) NULL
+);
+
+CREATE TABLE Aquisti (
+    AquistiID INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    SellerID INT, -- foreign key legata a Proprietari(SellerID)
+    CarID INT, -- foreign key legata a AutoUsate(CarID)
+    PurchasingDate DATE,
+    PurchasingPrice DECIMAL(10, 2),
+);
+
+CREATE TABLE Vendite (
+    VenditeID INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    ClientID INT, -- foreign key legata a Clienti (ClientID),
+    CarID INT, -- Foreign key legata a AutoUsate(CarID)
+    SellingDate DATE NOT NULL,
+    SellingPrice DECIMAL(10, 2) NOT NULL
 );
 
 CREATE TABLE Clienti (
@@ -31,17 +48,17 @@ CREATE TABLE Clienti (
 
 CREATE TABLE Riparazioni (
     ReparationID INT PRIMARY KEY AUTO_INCREMENT,
-    CarID INT, -- foreign key legata a tablella AutoUsate
+    CarID INT, -- foreign key legata a tabella AutoUsate(CarID)
     ReparationDate DATE NULL,
     ReparationDescription VARCHAR(255) NULL,
-    ReparationCost DECIMAL(10, 2) NULL,
+    ReparationCost DECIMAL(10, 2) NULL
 );
 
 CREATE TABLE Tagliandi (
     ServiceID INT PRIMARY KEY UNIQUE NOT NULL,
-    CarID INT, -- foreign key legata a tablella AutoUsate
+    CarID INT, -- foreign key legata a tabella AutoUsate(CarID)
     ServiceDate DATE NOT NULL,
     ServiceTime DATE NOT NULL,
     ServiceDescr VARCHAR(255) NULL,
-    ServicePrice DECIMAL(10, 2) NOT NULL,
+    ServicePrice DECIMAL(10, 2) NOT NULL
 );
