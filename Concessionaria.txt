@@ -1,0 +1,47 @@
+CREATE TABLE AutoUsate (
+    CarID INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    Marca VARCHAR(50) NOT NULL,
+    Modello VARCHAR(50) NOT NULL,
+    Anno INT NOT NULL,
+    Kilometri INT NULL,
+    Prezzo DECIMAL(10, 2) NOT NULL,
+    Cambio VARCHAR(20) DEFAULT 'Manuale',
+    Colore VARCHAR(20) NULL,
+    Cilindrata DECIMAL(4, 2) NULL,
+    Riparazioni BOOLEAN,
+    TagliandoID INT, -- foreign key legata a tabella Tagliandi
+    ProprietarioID INT, -- foreign key relazionata con tabella Proprietari
+    ClienteID INT, -- foreign key legata con tabella Clienti
+);
+
+CREATE TABLE Proprietari (
+    SellerID INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    SellerName VARCHAR(100) NOT NULL,
+    SellerEmail VARCHAR(255) NOT NULL,
+    SellerPhone VARCHAR(20) NOT NULL,
+    SellerAddress VARCHAR(255) NULL
+);
+
+CREATE TABLE Clienti (
+    ClientID INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    ClientName VARCHAR(100) NOT NULL,
+    ClientEmail VARCHAR(255) NULL,
+    ClientPhone VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE Riparazioni (
+    ReparationID INT PRIMARY KEY AUTO_INCREMENT,
+    CarID INT, -- foreign key legata a tablella AutoUsate
+    ReparationDate DATE NULL,
+    ReparationDescription VARCHAR(255) NULL,
+    ReparationCost DECIMAL(10, 2) NULL,
+);
+
+CREATE TABLE Tagliandi (
+    ServiceID INT PRIMARY KEY UNIQUE NOT NULL,
+    CarID INT, -- foreign key legata a tablella AutoUsate
+    ServiceDate DATE NOT NULL,
+    ServiceTime DATE NOT NULL,
+    ServiceDescr VARCHAR(255) NULL,
+    ServicePrice DECIMAL(10, 2) NOT NULL,
+);
